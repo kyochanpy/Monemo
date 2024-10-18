@@ -6,6 +6,9 @@ export default {
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
+		fontFamily: {
+			title: ['"Zen Maru Gothic"', 'sans-serif'],
+		},
   	extend: {
   		borderRadius: {
   			lg: 'var(--radius)',
