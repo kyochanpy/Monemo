@@ -4,6 +4,17 @@
 @tailwind components;
 @tailwind utilities;
 
+/* src/index.css または src/App.css などで定義 */
+@layer utilities {
+  .grid-rows-custom {
+    grid-template-rows: 10% 20% 70%;
+  }
+}
+
+.content-height {
+  height: calc(100vh - 15rem);
+}
+
 .logo.vite:hover {
   filter: drop-shadow(0 0 2em #747bff);
 }
