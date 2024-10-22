@@ -1,39 +1,19 @@
+import { GraphCard } from "./graphCard";
+import { SegmentTab } from "./tab";
+
+export const description = "A bar chart";
+
 export function Graph() {
 	return (
-		<div id="page-container" className="grid h-full grid-rows-[10%_20%_70%]">
-			{/* Segment */}
-			<div id="tab-container" className="bg-gray-200 ">
-				segment
-			</div>
-
-			{/* Date, Money and Pagination Section */}
-			<div id="date-money-pagenation-container" className=" bg-gray-100">
-				{/* Left Pagination */}
-				<div id="left-pagenation-container" className="">
-					L
+		<div className="grid grid-rows-[10%_90%] content-height">
+			<SegmentTab />
+			<div className="bg-white grid grid-rows-[2%_94%_4%]">
+				<div />
+				<div className="flex items-center justify-center h-full">
+					<GraphCard />
 				</div>
-
-				{/* Date and Money */}
-				<div id="date-money-container" className="items-center">
-					<div id="date-container" className="text-lg">
-						date
-					</div>
-					<div id="money-container" className="text-lg">
-						money
-					</div>
-				</div>
-
-				{/* Right Pagination */}
-				<div id="right-pagenation-container" className="">
-					R
-				</div>
-			</div>
-
-			{/* Graph */}
-			<div id="graph-container" className="bg-gray-500 ">
-				graph
+				<div />
 			</div>
 		</div>
-		// <h1>Graph</h1>
 	);
 }

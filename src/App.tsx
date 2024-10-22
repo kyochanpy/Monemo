@@ -5,6 +5,7 @@ import {
 	BottomTabsList,
 	BottomTabsTrigger,
 } from "@/components/ui/bottomTabs";
+
 import { ChartColumn, List } from "lucide-react";
 import { Calendar } from "lucide-react";
 import { useState } from "react";
@@ -14,6 +15,7 @@ import { Graph } from "./pages/graph/Graph";
 
 function App() {
 	const [activeTab, setActiveTab] = useState("graph");
+	// const [activeSegment, setActiveSegment] = useState("week");
 
 	const getTitle = () => {
 		switch (activeTab) {
@@ -31,7 +33,7 @@ function App() {
 	return (
 		<div className="">
 			{/* Title 部分を上に固定 */}
-			<div className="h-16 w-full border-b flex justify-center items-center bg-white">
+			<div className="h-16 w-full border-b flex justify-center items-center bg-white border-gray-400">
 				<h1 className="text-xl font-title">{getTitle()}</h1>
 			</div>
 
@@ -43,10 +45,7 @@ function App() {
 			>
 				{/* コンテンツ部分 */}
 				<div className="h-full">
-					<BottomTabsContent
-						value="graph"
-						className="grid grid-rows-[10%_20%_70%] content-height"
-					>
+					<BottomTabsContent value="graph">
 						<Graph />
 					</BottomTabsContent>
 					<BottomTabsContent value="calendar">
@@ -58,7 +57,7 @@ function App() {
 				</div>
 
 				{/* BottomTabsList を下に固定 */}
-				<div className="w-full border-t fixed bottom-0 h-16">
+				<div className="w-full border-t fixed bottom-0 h-16 border-gray-400">
 					<BottomTabsList className="grid w-full grid-cols-3 bg-white h-16">
 						<BottomTabsTrigger value="graph">
 							<ChartColumn strokeWidth={activeTab === "graph" ? 2 : 1} />

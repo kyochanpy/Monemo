@@ -11,6 +11,12 @@
   }
 }
 
+.graph-wrapper {
+  overflow-x: auto;
+  overflow-y: hidden;
+  width: 100%;
+}
+
 .content-height {
   height: calc(100vh - 15rem);
 }
