@@ -1,12 +1,18 @@
+import type { Dispatch, SetStateAction } from "react";
 import { Tabs, TabsList, TabsTrigger } from "../../components/ui/tabs";
 
-export function SegmentTab() {
+type SegmentTabType = {
+	segmentSetter: Dispatch<SetStateAction<string>>;
+};
+
+export function SegmentTab(props: SegmentTabType) {
 	return (
 		<div className="bg-white flex items-center justify-center">
 			<Tabs
 				// onValueChange={setActiveSegment}
 				defaultValue="week"
 				className="w-11/12"
+				onValueChange={props.segmentSetter}
 			>
 				<TabsList className="grid w-full grid-cols-3 bg-gray-200 h-full">
 					<TabsTrigger
