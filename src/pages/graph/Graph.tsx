@@ -16,6 +16,7 @@ export function Graph() {
 		left: false,
 		right: false,
 		yen: 0,
+		segment: "week",
 	});
 	const [segment, setSegment] = useState("week");
 
@@ -26,19 +27,18 @@ export function Graph() {
 				let res: ClientResponse<GraphResponse, StatusCode, "json">;
 				if (segment === "week") {
 					res = await client.graph.week[":date"].$get({
-						param: { date: "2024-10-20" }, // 有効な日付を指定
+						param: { date: "2024-10-20" },
 					});
 				} else if (segment === "month") {
 					res = await client.graph.month[":date"].$get({
-						param: { date: "2024-10-20" }, // 有効な日付を指定
+						param: { date: "2024-10-20" },
 					});
 				} else {
 					res = await client.graph.year[":date"].$get({
-						param: { date: "2024-10-20" }, // 有効な日付を指定
+						param: { date: "2024-10-20" },
 					});
 				}
 				const data = await res.json();
-				console.log("test", data); // デバッグ用にレスポンスデータをログに表示
 				setData(data);
 			} catch (error) {
 				console.error("Error fetching data:", error);
@@ -60,6 +60,7 @@ export function Graph() {
 						yen={data.yen}
 						left={data.left}
 						right={data.right}
+						segment={data.segment}
 					/>
 				</div>
 				<div />

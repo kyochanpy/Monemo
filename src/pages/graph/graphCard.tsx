@@ -13,6 +13,7 @@ import {
 	YAxis,
 } from "recharts";
 
+import { Button } from "@/components/ui/button";
 import type { GraphResponse } from "../../../mock-server/src/index";
 
 type CardHeaderType = {
@@ -29,6 +30,7 @@ type BarContentType = {
 
 type CardContentType = {
 	data: Array<BarContentType>;
+	segment: "week" | "month" | "year";
 };
 
 // 波線SVGを特定の座標に描画する関数
@@ -65,10 +67,16 @@ const CustomWaveAtPosition = ({ cx, cy }: { cx: number; cy: number }) => {
 
 const GraphCardHeader = (props: CardHeaderType) => {
 	return (
-		<CardHeader className="grid grid-cols-[20%_60%_20%] m-0 p-0">
+		<CardHeader className="grid grid-cols-[24%_52%_24%] m-0 p-0">
 			<div className="flex items-center justify-end">
-				<CircleChevronLeft strokeWidth={1} size={36} />
+				<Button
+					disabled={true}
+					className="flex items-center justify-end h-4/5 bg-white hover:bg-white active:bg-gray-100 shadow-none"
+				>
+					<CircleChevronLeft strokeWidth={1} size={40} color="black" />
+				</Button>
 			</div>
+
 			<div className="grid grid-rows-[10%_30%_50%_10%]">
 				<div />
 				<div className="flex items-center justify-center">
@@ -82,7 +90,9 @@ const GraphCardHeader = (props: CardHeaderType) => {
 				<div />
 			</div>
 			<div className="flex items-center justify-start">
-				<CircleChevronRight strokeWidth={1} size={36} />
+				<Button className="flex items-center justify-start h-4/5 bg-white hover:bg-white active:bg-gray-100 shadow-none">
+					<CircleChevronRight strokeWidth={1} size={40} color="black" />
+				</Button>
 			</div>
 		</CardHeader>
 	);
@@ -162,33 +172,37 @@ const GraphCardContent = (props: CardContentType) => {
 						<BarChart data={props.data} barSize={30} width={500}>
 							<CartesianGrid vertical={false} className="opacity-20" />
 							<XAxis dataKey="key" tickLine={false} axisLine={false} />
-							<YAxis domain={[0, 7200]} tick={false} width={0} />
+							<YAxis
+								domain={[0, props.segment === "month" ? 7200 : 216000]}
+								tick={false}
+								width={0}
+							/>
 							<ReferenceLine
-								y={1000}
+								y={props.segment === "month" ? 1000 : 30000}
 								stroke="blue"
 								strokeWidth={5}
 								className="opacity-15"
 							/>
 							<ReferenceLine
-								y={2000}
+								y={props.segment === "month" ? 2000 : 60000}
 								stroke="green"
 								strokeWidth={5}
 								className="opacity-15"
 							/>
 							<ReferenceLine
-								y={3000}
+								y={props.segment === "month" ? 3000 : 90000}
 								stroke="yellow"
 								strokeWidth={5}
 								className="opacity-20"
 							/>
 							<ReferenceLine
-								y={4000}
+								y={props.segment === "month" ? 4000 : 120000}
 								stroke="orange"
 								strokeWidth={5}
 								className="opacity-15"
 							/>
 							<ReferenceLine
-								y={5000}
+								y={props.segment === "month" ? 5000 : 150000}
 								stroke="red"
 								strokeWidth={5}
 								className="opacity-15"
@@ -232,7 +246,7 @@ export function GraphCard(props: GraphResponse) {
 					left={props.left}
 					right={props.right}
 				/>
-				<GraphCardContent data={props.data} />
+				<GraphCardContent data={props.data} segment={props.segment} />
 			</div>
 		</Card>
 	);

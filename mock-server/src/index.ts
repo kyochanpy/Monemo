@@ -12,6 +12,7 @@ export type GraphResponse = {
 	yen: number;
 	left: boolean;
 	right: boolean;
+	segment: "week" | "month" | "year";
 };
 
 const graphApp = new Hono()
@@ -32,6 +33,7 @@ const graphApp = new Hono()
 			yen: 111111,
 			left: true,
 			right: false,
+			segment: "week",
 		};
 		return c.json(response);
 	})
@@ -75,6 +77,7 @@ const graphApp = new Hono()
 			yen: 1111111,
 			left: true,
 			right: false,
+			segment: "month",
 		};
 		return c.json(response);
 	})
@@ -100,6 +103,7 @@ const graphApp = new Hono()
 			yen: 11111111,
 			left: true,
 			right: false,
+			segment: "year",
 		};
 		return c.json(response);
 	});
