@@ -154,12 +154,17 @@ const GraphCardContent = (props: CardContentType) => {
 										/>
 									}
 								/>
-								<ReferenceDot
-									x="火"
-									y={6500}
-									shape={<CustomWaveAtPosition cx={0} cy={0} />}
-									isFront={true}
-								/>
+								{props.data.map((item) =>
+									item.yen > 6900 ? (
+										<ReferenceDot
+											key={item.key}
+											x={item.key}
+											y={6000}
+											shape={<CustomWaveAtPosition cx={0} cy={0} />}
+											isFront={true}
+										/>
+									) : null,
+								)}
 							</BarChart>
 						</ChartContainer>
 					);
@@ -222,12 +227,17 @@ const GraphCardContent = (props: CardContentType) => {
 									/>
 								}
 							/>
-							<ReferenceDot
-								x="火"
-								y={6500}
-								shape={<CustomWaveAtPosition cx={0} cy={0} />}
-								isFront={true}
-							/>
+							{props.data.map((item) =>
+								item.yen > (props.segment === "month" ? 6900 : 210000) ? (
+									<ReferenceDot
+										key={item.key}
+										x={item.key}
+										y={props.segment === "month" ? 6000 : 180000}
+										shape={<CustomWaveAtPosition cx={0} cy={0} />}
+										isFront={true}
+									/>
+								) : null,
+							)}
 						</BarChart>
 					</ResponsiveContainer>
 				);
