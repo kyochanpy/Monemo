@@ -8,6 +8,7 @@ import {
 	ReferenceDot,
 	ReferenceLine,
 	ResponsiveContainer,
+	Tooltip,
 	XAxis,
 	YAxis,
 } from "recharts";
@@ -98,13 +99,18 @@ const GraphCardHeader = (props: CardHeaderType) => {
 };
 
 const GraphCardContent = (props: CardContentType) => {
+	const limitedData = props.data.map((item) => ({
+		...item,
+		displayYen: item.yen, // 実際の金額
+		yen: item.yen > 7000 ? 7000 : item.yen, // 表示する棒グラフの高さを制限
+	}));
 	return (
 		<CardContent className="w-full overflow-x-scroll hidden-scrollbar">
 			{(() => {
 				if (props.data.length < 8) {
 					return (
 						<ChartContainer config={{}} className="h-full w-full graph-wapper">
-							<BarChart data={props.data} barSize={30} width={500}>
+							<BarChart data={limitedData} barSize={30} width={500}>
 								<CartesianGrid vertical={false} className="opacity-20" />
 								<XAxis dataKey="key" tickLine={false} axisLine={false} />
 								<YAxis domain={[0, 7200]} tick={false} width={0} />
@@ -139,6 +145,7 @@ const GraphCardContent = (props: CardContentType) => {
 									className="opacity-15"
 								/>
 
+								<Tooltip cursor={false} />
 								<Bar
 									dataKey="yen"
 									shape={
@@ -211,6 +218,7 @@ const GraphCardContent = (props: CardContentType) => {
 								className="opacity-15"
 							/>
 
+							<Tooltip cursor={false} />
 							<Bar
 								dataKey="yen"
 								shape={

@@ -22,7 +22,7 @@ const graphApp = new Hono()
 		const response: GraphResponse = {
 			data: [
 				{ key: "月", yen: 1860 },
-				{ key: "火", yen: 7000 },
+				{ key: "火", yen: 97000 },
 				{ key: "水", yen: 2370 },
 				{ key: "木", yen: 1230 },
 				{ key: "金", yen: 2090 },
@@ -73,7 +73,7 @@ const graphApp = new Hono()
 				{ key: 29, yen: 0 },
 				{ key: 30, yen: 0 },
 			],
-			date: "10",
+			date: "10月",
 			yen: 1111111,
 			left: true,
 			right: false,
@@ -99,7 +99,7 @@ const graphApp = new Hono()
 				{ key: 11, yen: 1230 },
 				{ key: 12, yen: 2090 },
 			],
-			date: "2024",
+			date: "2024年",
 			yen: 11111111,
 			left: true,
 			right: false,
