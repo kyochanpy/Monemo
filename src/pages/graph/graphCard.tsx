@@ -8,7 +8,6 @@ import {
 	ReferenceDot,
 	ReferenceLine,
 	ResponsiveContainer,
-	Tooltip,
 	XAxis,
 	YAxis,
 } from "recharts";
@@ -140,7 +139,6 @@ const GraphCardContent = (props: CardContentType) => {
 									className="opacity-15"
 								/>
 
-								<Tooltip cursor={false} />
 								<Bar
 									dataKey="yen"
 									shape={
@@ -213,7 +211,6 @@ const GraphCardContent = (props: CardContentType) => {
 								className="opacity-15"
 							/>
 
-							<Tooltip cursor={false} />
 							<Bar
 								dataKey="yen"
 								shape={
