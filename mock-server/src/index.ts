@@ -112,7 +112,68 @@ const graphApp = new Hono()
 		return c.json(response);
 	});
 
-const app = new Hono().route("/graph", graphApp);
+type DescriptionData = {
+	date: string;
+	time: string;
+	yen: number;
+};
+
+export type DescriptionResponse = {
+	data: DescriptionData[];
+};
+
+const descriptionApp = new Hono().get("/", (c) => {
+	c.header("Access-Control-Allow-Origin", "*");
+	const response: DescriptionResponse = {
+		data: [
+			{ date: "2024-10-01", time: "07:23:24", yen: getRandomInt(0, 7000) },
+			{ date: "2024-10-01", time: "08:23:24", yen: getRandomInt(0, 7000) },
+			{ date: "2024-10-01", time: "09:23:24", yen: getRandomInt(0, 7000) },
+			{ date: "2024-10-01", time: "10:23:24", yen: getRandomInt(0, 7000) },
+			{ date: "2024-10-01", time: "11:23:24", yen: getRandomInt(0, 7000) },
+			{ date: "2024-10-01", time: "12:23:24", yen: getRandomInt(0, 7000) },
+			{ date: "2024-10-01", time: "13:23:24", yen: getRandomInt(0, 7000) },
+			{ date: "2024-10-01", time: "14:23:24", yen: getRandomInt(0, 7000) },
+			{ date: "2024-10-01", time: "15:23:24", yen: getRandomInt(0, 7000) },
+			{ date: "2024-10-01", time: "16:23:24", yen: getRandomInt(0, 7000) },
+			{ date: "2024-10-02", time: "07:23:24", yen: getRandomInt(0, 7000) },
+			{ date: "2024-10-02", time: "08:23:24", yen: getRandomInt(0, 7000) },
+			{ date: "2024-10-02", time: "09:23:24", yen: getRandomInt(0, 7000) },
+			{ date: "2024-10-02", time: "10:23:24", yen: getRandomInt(0, 7000) },
+			{ date: "2024-10-02", time: "11:23:24", yen: getRandomInt(0, 7000) },
+			{ date: "2024-10-02", time: "12:23:24", yen: getRandomInt(0, 7000) },
+			{ date: "2024-10-02", time: "13:23:24", yen: getRandomInt(0, 7000) },
+			{ date: "2024-10-02", time: "14:23:24", yen: getRandomInt(0, 7000) },
+			{ date: "2024-10-02", time: "15:23:24", yen: getRandomInt(0, 7000) },
+			{ date: "2024-10-02", time: "16:23:24", yen: getRandomInt(0, 7000) },
+			{ date: "2024-10-03", time: "07:23:24", yen: getRandomInt(0, 7000) },
+			{ date: "2024-10-03", time: "08:23:24", yen: getRandomInt(0, 7000) },
+			{ date: "2024-10-03", time: "09:23:24", yen: getRandomInt(0, 7000) },
+			{ date: "2024-10-03", time: "10:23:24", yen: getRandomInt(0, 7000) },
+			{ date: "2024-10-03", time: "11:23:24", yen: getRandomInt(0, 7000) },
+			{ date: "2024-10-03", time: "12:23:24", yen: getRandomInt(0, 7000) },
+			{ date: "2024-10-03", time: "13:23:24", yen: getRandomInt(0, 7000) },
+			{ date: "2024-10-03", time: "14:23:24", yen: getRandomInt(0, 7000) },
+			{ date: "2024-10-03", time: "15:23:24", yen: getRandomInt(0, 7000) },
+			{ date: "2024-10-03", time: "16:23:24", yen: getRandomInt(0, 7000) },
+			{ date: "2024-10-04", time: "07:23:24", yen: getRandomInt(0, 7000) },
+			{ date: "2024-10-04", time: "08:23:24", yen: getRandomInt(0, 7000) },
+			{ date: "2024-10-04", time: "09:23:24", yen: getRandomInt(0, 7000) },
+			{ date: "2024-10-04", time: "10:23:24", yen: getRandomInt(0, 7000) },
+			{ date: "2024-10-04", time: "11:23:24", yen: getRandomInt(0, 7000) },
+			{ date: "2024-10-04", time: "12:23:24", yen: getRandomInt(0, 7000) },
+			{ date: "2024-10-04", time: "13:23:24", yen: getRandomInt(0, 7000) },
+			{ date: "2024-10-04", time: "14:23:24", yen: getRandomInt(0, 7000) },
+			{ date: "2024-10-04", time: "15:23:24", yen: getRandomInt(0, 7000) },
+			{ date: "2024-10-04", time: "16:23:24", yen: getRandomInt(0, 7000) },
+		],
+	};
+	return c.json(response);
+});
+
+const app = new Hono()
+	.route("/graph", graphApp)
+	.route("/description", descriptionApp);
 
 export type AppType = typeof app;
 
