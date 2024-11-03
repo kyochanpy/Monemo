@@ -5,6 +5,7 @@ import {
 	BottomTabsList,
 	BottomTabsTrigger,
 } from "@/components/ui/bottomTabs";
+
 import { ChartColumn, List } from "lucide-react";
 import { Calendar } from "lucide-react";
 import { useState } from "react";
@@ -14,6 +15,7 @@ import { Graph } from "./pages/graph/Graph";
 
 function App() {
 	const [activeTab, setActiveTab] = useState("graph");
+	// const [activeSegment, setActiveSegment] = useState("week");
 
 	const getTitle = () => {
 		switch (activeTab) {
@@ -29,12 +31,20 @@ function App() {
 	};
 
 	return (
-		<div className="fixed flex flex-col h-screen w-full">
-			<div className="flex justify-center items-center w-full h-16 bg-white border-b">
+		<div className="">
+			{/* Title 部分を上に固定 */}
+			<div className="h-16 w-full border-b flex justify-center items-center bg-white border-gray-400">
 				<h1 className="text-xl font-title">{getTitle()}</h1>
 			</div>
-			<BottomTabs defaultValue="graph" onValueChange={setActiveTab}>
-				<div className="flex-1 overflow-auto">
+
+			{/* 残りのスペースに BottomTabs コンテンツを配置 */}
+			<BottomTabs
+				defaultValue="graph"
+				onValueChange={setActiveTab}
+				className=" fixed flex flex-col h-screen w-full gap-0 bg-white"
+			>
+				{/* コンテンツ部分 */}
+				<div className="h-full">
 					<BottomTabsContent value="graph">
 						<Graph />
 					</BottomTabsContent>
@@ -45,8 +55,10 @@ function App() {
 						<Description />
 					</BottomTabsContent>
 				</div>
-				<div className="fixed bottom-0 w-full border-t">
-					<BottomTabsList className="grid w-full grid-cols-3 h-16 bg-white">
+
+				{/* BottomTabsList を下に固定 */}
+				<div className="w-full border-t fixed bottom-0 h-16 border-gray-400">
+					<BottomTabsList className="grid w-full grid-cols-3 bg-white h-16">
 						<BottomTabsTrigger value="graph">
 							<ChartColumn strokeWidth={activeTab === "graph" ? 2 : 1} />
 						</BottomTabsTrigger>
