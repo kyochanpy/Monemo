@@ -1,5 +1,15 @@
 import { Calendar } from "@/components/ui/calendar";
 import { Card } from "@/components/ui/card";
+import {
+	Drawer,
+	DrawerClose,
+	DrawerContent,
+	DrawerDescription,
+	DrawerFooter,
+	DrawerHeader,
+	DrawerTitle,
+} from "@/components/ui/drawer";
+import { ScrollArea } from "@/components/ui/scroll-area";
 import { addDays, format } from "date-fns";
 import * as React from "react";
 
@@ -7,13 +17,44 @@ const generateDummyData = (startDate: Date, days: number) => {
 	const data: { [key: string]: number } = {};
 	for (let i = 0; i < days; i++) {
 		const date = addDays(startDate, i);
-		data[format(date, "yyyy-MM-dd")] = Math.floor(Math.random() * 101);
+		data[format(date, "yyyy-MM-dd")] = Math.floor(Math.random() * 7000);
 	}
 	return data;
 };
 
+const generateBreakdownData = (value: number) => {
+	const categories = [
+		"カテゴリーA",
+		"カテゴリーB",
+		"カテゴリーC",
+		"カテゴリーD",
+		"カテゴリーE",
+		"カテゴリーF",
+		"カテゴリーG",
+		"カテゴリーH",
+		"カテゴリーI",
+		"カテゴリーJ",
+		"カテゴリーK",
+		"カテゴリーL",
+		"カテゴリーM",
+		"カテゴリーN",
+		"カテゴリーO",
+		"カテゴリーP",
+		"カテゴリーQ",
+		"カテゴリーR",
+		"カテゴリーS",
+		"カテゴリーT",
+	];
+	return categories.map((category) => ({
+		category,
+		value: Math.floor(Math.random() * (value + 1)),
+	}));
+};
+
 export function CalendarPage() {
 	const [date, setDate] = React.useState<Date | undefined>(new Date());
+	const [isDrawerOpen, setIsDrawerOpen] = React.useState(false);
+	const [selectedDate, setSelectedDate] = React.useState<Date | null>(null);
 
 	// 表示される月の範囲を指定
 	const startMonth = new Date(2023, 9, 1); // 10月（0始まりなので9）
@@ -34,16 +75,17 @@ export function CalendarPage() {
 		) + 1;
 
 	// ダミーデータを表示される日付範囲に合わせて生成
+	// biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
 	const dummyData = React.useMemo(() => {
 		return generateDummyData(startDate, days);
-	}, [startDate, days]);
+	}, []);
 
 	// 背景色を値に応じて設定する関数
 	const getBackgroundColor = React.useCallback((value: number) => {
-		if (value < 20) return "custom-blue";
-		if (value < 40) return "custom-green";
-		if (value < 60) return "custom-yellow";
-		if (value < 80) return "custom-orange";
+		if (value < 2000) return "custom-blue";
+		if (value < 3000) return "custom-green";
+		if (value < 4000) return "custom-yellow";
+		if (value < 5000) return "custom-orange";
 		return "custom-red";
 	}, []);
 
@@ -73,8 +115,13 @@ export function CalendarPage() {
 		};
 	}, []);
 
+	const handleDayClick = (day: Date) => {
+		setSelectedDate(day);
+		setIsDrawerOpen(true);
+	};
+
 	return (
-		<div className="flex justify-center items-center pt-4 pb-4 content-height bg-ye">
+		<div className="flex justify-center items-center pt-4 pb-4 content-height">
 			<Card className="w-5/6 h-full shadow-none flex justify-center items-center border-gray-400">
 				<Calendar
 					numberOfMonths={2}
@@ -85,6 +132,7 @@ export function CalendarPage() {
 					onSelect={setDate}
 					modifiers={modifiers}
 					modifiersStyles={modifiersStyles}
+					onDayClick={handleDayClick}
 					components={{
 						DayContent: ({ date }: { date: Date }) => (
 							<div className="flex items-center justify-center w-full h-full">
@@ -96,6 +144,36 @@ export function CalendarPage() {
 						),
 					}}
 				/>
+				<Drawer open={isDrawerOpen} onOpenChange={setIsDrawerOpen}>
+					<DrawerContent className="h-[50vh] max-h-[50vh]">
+						<DrawerHeader>
+							<DrawerDescription>
+								{selectedDate && format(selectedDate, "yyyy年MM月dd日")}
+							</DrawerDescription>
+						</DrawerHeader>
+						{selectedDate && (
+							<div className="flex flex-col items-center">
+								<span className="text-4xl font-bold mb-4">
+									{dummyData[format(selectedDate, "yyyy-MM-dd")] || 0}
+								</span>
+								<ScrollArea className="h-64 w-5/6 rounded-md border p-4">
+									{generateBreakdownData(
+										dummyData[format(selectedDate, "yyyy-MM-dd")] || 0,
+									).map((item, index) => (
+										<div
+											// biome-ignore lint/suspicious/noArrayIndexKey: <explanation>
+											key={index}
+											className="flex justify-between items-center py-2 border-b last:border-b-0"
+										>
+											<span>12:34</span>
+											<span>{item.value}</span>
+										</div>
+									))}
+								</ScrollArea>
+							</div>
+						)}
+					</DrawerContent>
+				</Drawer>
 			</Card>
 		</div>
 	);
