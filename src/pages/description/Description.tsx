@@ -1,53 +1,6 @@
-// import { ScrollArea } from "@/components/ui/scroll-area";
-// import { Separator } from "@/components/ui/separator";
-// import { type ClientResponse, hc } from "hono/client";
-// import type { StatusCode } from "hono/utils/http-status";
-// import { useEffect, useState } from "react";
-// import type {
-// 	AppType,
-// 	DescriptionResponse,
-// } from "../../../mock-server/src/index";
-
-// export function Description() {
-// 	const client = hc<AppType>("http://localhost:3000");
-// 	const [data, setData] = useState<DescriptionResponse>({
-// 		data: [],
-// 	});
-
-// 	// biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
-// 	useEffect(() => {
-// 		const fetchData = async () => {
-// 			try {
-// 				const res = await client.description.$get();
-// 				const data = await res.json();
-// 				setData(data);
-// 			} catch (error) {
-// 				console.error("Error fetching data:", error);
-// 			}
-// 		};
-
-// 		fetchData();
-// 	}, []);
-
-// 	return (
-// 		<ScrollArea className="h-72 w-48 rounded-md border">
-// 			<div className="p-4">
-// 				{data.data.map((item) => (
-// 					<>
-// 						<div key={item.date} className="text-sm">
-// 							{item.yen}
-// 						</div>
-// 						<Separator className="my-2" key={item.date} />
-// 					</>
-// 				))}
-// 			</div>
-// 		</ScrollArea>
-// 	);
-// }
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/separator";
-import { type ClientResponse, hc } from "hono/client";
-import type { StatusCode } from "hono/utils/http-status";
+import { hc } from "hono/client";
 import { useEffect, useRef, useState } from "react";
 import type {
 	AppType,
@@ -56,18 +9,18 @@ import type {
 
 const barColor = (yen: number) => {
 	if (yen < 2000) {
-		return "bg-blue-600";
+		return "bg-blue-400";
 	}
 	if (yen < 3000) {
-		return "bg-green-600";
+		return "bg-green-400";
 	}
 	if (yen < 4000) {
-		return "bg-yellow-600";
+		return "bg-yellow-400";
 	}
 	if (yen < 5000) {
-		return "bg-orange-600";
+		return "bg-orange-400";
 	}
-	return "bg-red-600";
+	return "bg-red-400";
 };
 
 const textColor = (yen: number) => {
