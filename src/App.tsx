@@ -9,7 +9,6 @@ import {
 import { ChartColumn, List } from "lucide-react";
 import { Calendar } from "lucide-react";
 import { useState } from "react";
-import { CalendarPage } from "./pages/calendar/Calendar";
 import { Description } from "./pages/description/Description";
 import { Graph } from "./pages/graph/Graph";
 
@@ -48,9 +47,6 @@ function App() {
 					<BottomTabsContent value="graph">
 						<Graph />
 					</BottomTabsContent>
-					<BottomTabsContent value="calendar">
-						<CalendarPage />
-					</BottomTabsContent>
 					<BottomTabsContent value="description">
 						<Description />
 					</BottomTabsContent>
@@ -58,12 +54,9 @@ function App() {
 
 				{/* BottomTabsList を下に固定 */}
 				<div className="w-full border-t fixed bottom-0 h-16 border-gray-400">
-					<BottomTabsList className="grid w-full grid-cols-3 bg-white h-16">
+					<BottomTabsList className="grid w-full grid-cols-2 bg-white h-16">
 						<BottomTabsTrigger value="graph">
 							<ChartColumn strokeWidth={activeTab === "graph" ? 2 : 1} />
-						</BottomTabsTrigger>
-						<BottomTabsTrigger value="calendar">
-							<Calendar strokeWidth={activeTab === "calendar" ? 2 : 1} />
 						</BottomTabsTrigger>
 						<BottomTabsTrigger value="description">
 							<List strokeWidth={activeTab === "description" ? 2 : 1} />
