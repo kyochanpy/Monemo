@@ -1,7 +1,10 @@
-# Tauri + React + Typescript
+# 自分で使う用のクレカ使用金額記録アプリ
+tauriが2.0がstable releaseになったのでモバイルアプリを作ってみる
 
-This template should help get you started developing with Tauri, React and Typescript in Vite.
+https://github.com/user-attachments/assets/d21bc61c-f469-4886-b519-9a16ec25b2ec
 
-## Recommended IDE Setup
 
-- [VS Code](https://code.visualstudio.com/) + [Tauri](https://marketplace.visualstudio.com/items?itemName=tauri-apps.tauri-vscode) + [rust-analyzer](https://marketplace.visualstudio.com/items?itemName=rust-lang.rust-analyzer)
+サーバサイドはSupabase(Edge Functions)
+
+GmailからZoho mailに転送してwebhookでedge functionsへ
+edge functionsでメール文面をパースしてDBへ保存
